@@ -32,27 +32,13 @@ var pluckFirstLineFromFile = function (filePath, callback) {
 
 // This function should retrieve the status code of a GET request to `url`
 var getStatusCode = function (url, callback) {
-  
-  //get status code
-    // var statusCode = someFunction(url);
-  // if (statusCode === bad or undefined or null) {
-  //   callback(err);
-  // } else {
-  //   callback(null, statusCode);
-  // }
-  
-  $.ajax({
-    url: url, 
-    type: 'GET',
-    // data: {},
-    success: function (data, status) {
-      callback(null, status);
-    }, 
-    error: function (err) {
-      callback(err);
+  request.get(url, function (error, response, body) {
+    if (error) {
+      callback(error);
+    } else {
+      callback( null, response.statusCode);
     }
   });
-  
 };
 
 // Export these functions so we can test them and reuse them in later exercises
